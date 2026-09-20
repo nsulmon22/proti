@@ -171,8 +171,8 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
         </div>
 
         <h1
-          className="mb-2"
           style={{
+            marginBottom: 8,
             fontFamily: 'var(--font-display)',
             fontSize: 'var(--size-display-m)',
             fontWeight: 600,
@@ -221,8 +221,7 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
         {ingredients.length > 0 && (
           <div className="mb-10">
             <h2
-              className="mb-4"
-              style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--size-heading-m)', fontWeight: 600 }}
+              style={{ marginBottom: 16, fontFamily: 'var(--font-display)', fontSize: 'var(--size-heading-m)', fontWeight: 600 }}
             >
               Ingredients
             </h2>
@@ -243,8 +242,7 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
         {recipe.method.length > 0 && (
           <div>
             <h2
-              className="mb-4"
-              style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--size-heading-m)', fontWeight: 600 }}
+              style={{ marginBottom: 16, fontFamily: 'var(--font-display)', fontSize: 'var(--size-heading-m)', fontWeight: 600 }}
             >
               Method
             </h2>

@@ -41,7 +41,7 @@ export function Input({ label, hint, error, iconLeft, size = 'm', disabled = fal
           outline: 'none',
           background: 'transparent',
           fontFamily: 'var(--font-text)',
-          fontSize: 'var(--size-body-m)',
+          fontSize: '16px',
           color: 'var(--text-body)',
         },
       }),

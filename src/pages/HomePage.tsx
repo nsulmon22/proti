@@ -48,8 +48,12 @@ const DIET_EMOJI: Record<string, string> = {
 function SectionHeading({ children }: { children: string }) {
   return (
     <h2
-      className="mb-6"
-      style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--size-heading-m)', fontWeight: 600 }}
+      style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: 'var(--size-heading-m)',
+        fontWeight: 600,
+        marginBottom: 24,
+      }}
     >
       {children}
     </h2>

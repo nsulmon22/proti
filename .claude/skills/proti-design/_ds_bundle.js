@@ -292,7 +292,7 @@ function Input({ label, hint, error, iconLeft, size = "m", disabled = false, id,
     },
       iconLeft ? React.createElement(__ds_scope.Icon, { name: iconLeft, size: 18, color: "var(--ink-3)" }) : null,
       React.createElement("input", Object.assign({ id: uid, disabled, onFocus: () => setFocus(true), onBlur: () => setFocus(false) }, rest, {
-        style: { flex: 1, minWidth: 0, border: "none", outline: "none", background: "transparent", fontFamily: "var(--font-text)", fontSize: "var(--size-body-m)", color: "var(--text-body)" },
+        style: { flex: 1, minWidth: 0, border: "none", outline: "none", background: "transparent", fontFamily: "var(--font-text)", fontSize: "16px", color: "var(--text-body)" },
       })),
     ),
     error || hint ? React.createElement("span", { style: { fontSize: "var(--size-body-s)", color: error ? "var(--status-danger-fg)" : "var(--text-subtle)" } }, error || hint) : null,
@@ -332,7 +332,7 @@ function Select({ label, hint, options = [], disabled = false, id, style, ...res
       style: { position: "relative", display: "flex", alignItems: "center", height: "var(--control-height-m)", borderRadius: "var(--radius-field)", background: disabled ? "var(--cream-2)" : "var(--surface-card)", border: `1px solid ${focus ? "var(--border-focus)" : "var(--border-default)"}`, boxShadow: focus ? "var(--shadow-focus)" : "none" },
     },
       React.createElement("select", Object.assign({ id: uid, disabled, onFocus: () => setFocus(true), onBlur: () => setFocus(false) }, rest, {
-        style: { appearance: "none", WebkitAppearance: "none", flex: 1, height: "100%", padding: "0 42px 0 16px", border: "none", outline: "none", background: "transparent", fontFamily: "var(--font-text)", fontSize: "var(--size-body-m)", color: "var(--text-body)", cursor: disabled ? "not-allowed" : "pointer", borderRadius: "var(--radius-field)" },
+        style: { appearance: "none", WebkitAppearance: "none", flex: 1, height: "100%", padding: "0 42px 0 16px", border: "none", outline: "none", background: "transparent", fontFamily: "var(--font-text)", fontSize: "16px", color: "var(--text-body)", cursor: disabled ? "not-allowed" : "pointer", borderRadius: "var(--radius-field)" },
       }), options.map((o) => {
         const value = typeof o === "string" ? o : o.value;
         const lbl = typeof o === "string" ? o : o.label;
