@@ -1,0 +1,36 @@
+:root{
+  --font-display:"Schibsted Grotesk","Helvetica Neue",Helvetica,sans-serif;
+  --font-text:"Manrope","Helvetica Neue",Helvetica,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;
+
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+
+  --size-display-xl:64px;
+  --size-display-l:48px;
+  --size-display-m:36px;
+  --size-heading-l:28px;
+  --size-heading-m:22px;
+  --size-heading-s:18px;
+  --size-body-l:17px;
+  --size-body-m:15px;
+  --size-body-s:13px;
+  --size-label:12px;
+
+  --leading-tight:1.06;
+  --leading-snug:1.22;
+  --leading-normal:1.5;
+  --leading-relaxed:1.65;
+
+  --tracking-tight:-0.03em;
+  --tracking-snug:-0.015em;
+  --tracking-normal:0em;
+  --tracking-wide:0.08em;
+
+  /* Semantic type roles */
+  --text-display-font:var(--font-display);
+  --text-body-font:var(--font-text);
+  --text-numeric-font:var(--font-mono);
+}

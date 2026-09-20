@@ -1,0 +1,96 @@
+:root{
+  /* Base neutrals — off-white foundation */
+  --cream-0:#FFFDF8;
+  --cream-1:#FAF8F1;
+  --cream-2:#F3F0E6;
+  --cream-3:#E8E4D6;
+  --cream-4:#D9D4C3;
+
+  /* Ink */
+  --ink-0:#333A30;
+  --ink-1:#414A3C;
+  --ink-2:#5A6153;
+  --ink-3:#8A9080;
+  --ink-4:#B4B9AB;
+
+  /* Accents — the three brand accents */
+  --sand-100:#F1EFDF;
+  --sand-200:#E3DFC7;
+  --sand-300:#D6D1B1;  /* brand sand */
+  --sand-400:#B9B392;
+  --sand-500:#8F8A6C;
+
+  --mint-100:#EAFAEE;
+  --mint-200:#DAF5E0;
+  --mint-300:#C7EFCF;  /* brand mint */
+  --mint-400:#9FD8AB;
+  --mint-500:#5E9C6C;
+
+  --leaf-100:#F7FAEE;
+  --leaf-200:#EEF5DB;  /* brand pale leaf */
+  --leaf-300:#DDE9BE;
+  --leaf-400:#C2D394;
+  --leaf-500:#8A9B5C;
+
+  /* Bold accent — the one saturated colour in the system. Use for a single
+     emphatic moment per view (hero eyebrow, promo band, live cooking timer).
+     Never for danger states: that stays muted clay. */
+  --paprika-100:#FBE7DE;
+  --paprika-200:#F6C7B2;
+  --paprika-300:#EC8A63;
+  --paprika-400:#D9552F;  /* brand bold accent */
+  --paprika-500:#A63C1D;
+
+  /* Support — derived, used sparingly for semantics only */
+  --clay-200:#F6DED6;
+  --clay-500:#B65B43;
+  --amber-200:#F6E7C8;
+  --amber-500:#A9791F;
+
+  /* Semantic surfaces */
+  --surface-page:var(--cream-1);
+  --surface-card:var(--cream-0);
+  --surface-sunken:var(--cream-2);
+  --surface-raised:#FFFFFF;
+  --surface-inverse:var(--ink-0);
+  --surface-accent:var(--mint-300);
+  --surface-accent-soft:var(--mint-100);
+  --surface-secondary:var(--sand-300);
+  --surface-secondary-soft:var(--sand-100);
+  --surface-tertiary:var(--leaf-200);
+  --surface-bold:var(--paprika-400);
+  --surface-bold-soft:var(--paprika-100);
+  --text-on-bold:var(--cream-0);
+  --text-accent-bold:var(--paprika-500);
+
+  /* Semantic text */
+  --text-heading:var(--ink-0);
+  --text-body:var(--ink-1);
+  --text-muted:var(--ink-2);
+  --text-subtle:var(--ink-3);
+  --text-inverse:var(--cream-0);
+  --text-on-accent:var(--ink-0);
+  --text-link:var(--mint-500);
+  --text-link-hover:var(--ink-0);
+
+  /* Semantic borders */
+  --border-subtle:var(--cream-3);
+  --border-default:var(--cream-4);
+  --border-strong:var(--ink-4);
+  --border-focus:var(--mint-500);
+
+  /* Semantic status */
+  --status-success-bg:var(--mint-200);
+  --status-success-fg:var(--mint-500);
+  --status-info-bg:var(--leaf-200);
+  --status-info-fg:var(--leaf-500);
+  --status-warning-bg:var(--amber-200);
+  --status-warning-fg:var(--amber-500);
+  --status-danger-bg:var(--clay-200);
+  --status-danger-fg:var(--clay-500);
+
+  /* Macro data colours (protein / carb / fat) */
+  --macro-protein:var(--mint-500);
+  --macro-carb:var(--leaf-400);
+  --macro-fat:var(--sand-400);
+}

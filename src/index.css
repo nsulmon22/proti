@@ -1,0 +1,29 @@
+/* Proti design-system tokens, flattened here so they precede Tailwind's
+   generated rules (CSS requires @import to come before other rules).
+   See src/design-system/styles.css for the standalone/portable version. */
+@import "./design-system/tokens/fonts.css";
+@import "./design-system/tokens/colors.css";
+@import "./design-system/tokens/typography.css";
+@import "./design-system/tokens/spacing.css";
+@import "./design-system/tokens/radius.css";
+@import "./design-system/tokens/elevation.css";
+@import "./design-system/tokens/motion.css";
+@import "./design-system/tokens/base.css";
+@import "tailwindcss";
+
+/* Full-bleed page background. `lvh` keeps it the same size when a mobile
+   browser's address bar collapses, so it no longer jumps at the bottom. */
+.app-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  z-index: -10;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  transform: translateZ(0);
+}
