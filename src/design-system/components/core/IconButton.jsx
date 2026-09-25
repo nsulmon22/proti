@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon } from './Icon.jsx'
+import { HeartIcon } from './HeartIcon.jsx'
 
 const TONES = {
   soft: { background: 'var(--cream-2)', color: 'var(--ink-1)', hover: 'var(--cream-3)' },
@@ -14,6 +15,10 @@ export function IconButton({ icon = 'heart', variant = 'soft', size = 'm', label
   const t = TONES[variant] || TONES.soft
   const px = SIZES[size] || SIZES.m
   const [hover, setHover] = React.useState(false)
+  // The favorite heart is clay red; switched on it fills and sits on a soft clay background.
+  const heart = icon === 'heart'
+  const activeBackground = heart ? 'var(--clay-200)' : 'var(--mint-300)'
+  const glyph = px <= 32 ? 16 : px <= 40 ? 18 : 20
   return React.createElement('button', {
     type: 'button',
     'aria-label': label,
@@ -29,12 +34,14 @@ export function IconButton({ icon = 'heart', variant = 'soft', size = 'm', label
       height: px,
       borderRadius: 'var(--radius-pill)',
       border: 'none',
-      background: active ? 'var(--mint-300)' : hover ? t.hover : t.background,
+      background: active ? activeBackground : hover ? t.hover : t.background,
       color: t.color,
       cursor: 'pointer',
       backdropFilter: variant === 'overlay' ? 'var(--blur-overlay)' : undefined,
       transition: 'background var(--duration-fast) var(--ease-standard)',
       ...style,
     },
-  }, React.createElement(Icon, { name: icon, size: px <= 32 ? 16 : px <= 40 ? 18 : 20 }))
+  }, heart
+    ? React.createElement(HeartIcon, { filled: active, size: glyph })
+    : React.createElement(Icon, { name: icon, size: glyph }))
 }

@@ -5,6 +5,7 @@ export { Badge } from './components/core/Badge.jsx'
 export { Button } from './components/core/Button.jsx'
 export { Card } from './components/core/Card.jsx'
 export { Icon } from './components/core/Icon.jsx'
+export { HeartIcon } from './components/core/HeartIcon.jsx'
 export { IconButton } from './components/core/IconButton.jsx'
 export { Tag } from './components/core/Tag.jsx'
 

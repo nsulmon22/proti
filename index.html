@@ -2,11 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Browser tab and iPhone home screen: the Proti logo (src/assets/Proti_Logo_Icon.png) cut out of its white
-         background and cropped square. The apple-touch-icon keeps a cream background, as iOS fills transparency with black. -->
+    <!-- Browser tab: the Proti logo (src/assets/Proti_Logo_Icon.png) cut out of its white background and cropped square.
+         Home screen (apple-touch-icon, manifest icons): the glossy app icon, the logo on a cream-to-sand background
+         with a soft shadow and a highlight. It is full-bleed and square, since iOS and Android round the corners themselves. -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- --surface-page (cream-1) from src/design-system/tokens/colors.css -->
+    <meta name="theme-color" content="#FAF8F1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proti</title>
     <meta
