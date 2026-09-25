@@ -27,3 +27,90 @@
   pointer-events: none;
   transform: translateZ(0);
 }
+
+/* The Proti logo + wordmark that links home. Keeps its own colour on hover
+   (no link underline); it lifts a little, like the cards. */
+.brand-link,
+.brand-link:hover {
+  color: var(--text-heading);
+  text-decoration: none;
+}
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    filter var(--duration-base) var(--ease-standard);
+}
+.brand-link:hover {
+  transform: translateY(var(--hover-lift));
+  filter: drop-shadow(0 4px 8px rgba(28, 32, 25, 0.12));
+}
+.brand-link:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Account button: the user's initial on a mint disc with a cream ring,
+   or a person glyph on sand when signed out. */
+.account-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid var(--cream-0);
+  border-radius: var(--radius-pill);
+  background: var(--mint-300);
+  color: var(--ink-0);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px var(--mint-400), var(--shadow-s);
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    background var(--duration-fast) var(--ease-standard);
+}
+.account-button:hover {
+  background: var(--mint-400);
+  transform: translateY(var(--hover-lift));
+  box-shadow: 0 0 0 1px var(--mint-500), var(--shadow-m);
+}
+.account-button:active {
+  transform: scale(var(--press-scale));
+}
+.account-button:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+.account-button--guest {
+  background: var(--sand-200);
+  box-shadow: 0 0 0 1px var(--sand-300), var(--shadow-s);
+}
+.account-button--guest:hover {
+  background: var(--sand-300);
+  box-shadow: 0 0 0 1px var(--sand-400), var(--shadow-m);
+}
+/* Chevron on a collapsible section heading. */
+.collapse-chevron {
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-link,
+  .account-button,
+  .collapse-chevron {
+    transition: none;
+  }
+  .brand-link:hover,
+  .account-button:hover {
+    transform: none;
+  }
+}

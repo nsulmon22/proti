@@ -1,13 +1,13 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent } from 'react'
 import { Link, useNavigate, useNavigationType } from 'react-router-dom'
-import { Button, DietaryChips, RecipeCard } from '../design-system'
+import { Button, DietaryChips, Icon, RecipeCard } from '../design-system'
 import { SearchBox, type Suggestion } from '../components/SearchBox'
 import { UserButton } from '../components/UserButton'
 import { useAuth } from '../context/AuthContext'
 import type { IngredientIndex } from '../hooks/useIngredientIndex'
 import { loadHomeView, orderForSession, saveHomeView } from '../lib/homeSession'
 import type { Recipe } from '../lib/recipes'
-import protiLogo from '../assets/Proti_Logo_Icon.png'
+import protiLogo from '../assets/proti-mark.png'
 import protiBg from '../assets/logo.png'
 
 interface HomePageProps {
@@ -45,17 +45,74 @@ const DIET_EMOJI: Record<string, string> = {
   Vegetarian: '🥕',
 }
 
+const headingStyle: CSSProperties = {
+  fontFamily: 'var(--font-display)',
+  fontSize: 'var(--size-heading-m)',
+  fontWeight: 600,
+}
+
 function SectionHeading({ children }: { children: string }) {
+  return <h2 style={{ ...headingStyle, marginBottom: 24 }}>{children}</h2>
+}
+
+const FAVORITES_OPEN_KEY = 'proti:favorites-open'
+
+function readFavoritesOpen() {
+  try {
+    return localStorage.getItem(FAVORITES_OPEN_KEY) !== 'false'
+  } catch {
+    return true
+  }
+}
+
+// A section heading that folds its section open and closed. The choice is remembered on this device.
+function CollapsibleHeading({
+  children,
+  count,
+  open,
+  onToggle,
+  controls,
+}: {
+  children: string
+  count: number
+  open: boolean
+  onToggle: () => void
+  controls: string
+}) {
   return (
-    <h2
-      style={{
-        fontFamily: 'var(--font-display)',
-        fontSize: 'var(--size-heading-m)',
-        fontWeight: 600,
-        marginBottom: 24,
-      }}
-    >
-      {children}
+    <h2 style={{ ...headingStyle, marginBottom: open ? 24 : 0 }}>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={controls}
+        onClick={onToggle}
+        className="flex items-center gap-3"
+        style={{ font: 'inherit', color: 'inherit', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+      >
+        {children}
+        <span
+          style={{
+            fontFamily: 'var(--font-text)',
+            fontSize: 'var(--size-body-s)',
+            fontWeight: 600,
+            color: 'var(--text-muted)',
+            background: 'var(--surface-sunken)',
+            borderRadius: 'var(--radius-pill)',
+            padding: '2px 10px',
+          }}
+        >
+          {count}
+        </span>
+        <Icon
+          name="chevron-down"
+          size={20}
+          className="collapse-chevron"
+          style={{
+            color: 'var(--text-muted)',
+            transform: open ? 'none' : 'rotate(-90deg)',
+          }}
+        />
+      </button>
     </h2>
   )
 }
@@ -84,6 +141,17 @@ export function HomePage({
   const [selectedCategories, setSelectedCategories] = useState<string[]>(initialView.categories)
   const [selectedDiets, setSelectedDiets] = useState<string[]>(initialView.diets)
   const [visibleCount, setVisibleCount] = useState(initialView.visibleCount)
+  const [favoritesOpen, setFavoritesOpen] = useState(readFavoritesOpen)
+
+  const toggleFavorites = () => {
+    const next = !favoritesOpen
+    setFavoritesOpen(next)
+    try {
+      localStorage.setItem(FAVORITES_OPEN_KEY, String(next))
+    } catch {
+      // Storage unavailable: the section just opens again next time.
+    }
+  }
 
   const recipesLoaded = !recipes.some((r) => r.id.startsWith('fallback-'))
 
@@ -108,6 +176,18 @@ export function HomePage({
   const openRecipe = (id: string) => {
     saveHomeView({ scrollY: window.scrollY })
     navigate(`/recipe/${id}`)
+  }
+
+  // The logo always leads back to the plain home page: no search, no filters, at the top.
+  const goHome = (e: MouseEvent) => {
+    e.preventDefault()
+    setQuery('')
+    setTriedFilter(null)
+    setSelectedCategories([])
+    setSelectedDiets([])
+    setVisibleCount(PAGE_SIZE)
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
   }
 
   // Every change to the query or a filter starts again at page one.
@@ -211,7 +291,7 @@ export function HomePage({
       <div className="app-bg" style={{ backgroundImage: `url(${protiBg})` }} />
       <div className="relative mx-auto max-w-5xl px-6 py-10 md:px-10">
         <header className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="brand-link" onClick={goHome}>
             <img src={protiLogo} alt="" className="h-8 w-8 object-contain" />
             <span
               style={{ fontFamily: 'var(--font-display)', letterSpacing: 'var(--tracking-tight)' }}
@@ -270,8 +350,15 @@ export function HomePage({
 
         {user && !userRecipesLoading && favoriteRecipes.length > 0 && (
           <section className="mb-10">
-            <SectionHeading>Favorites</SectionHeading>
-            <div className="flex flex-col gap-3">
+            <CollapsibleHeading
+              count={favoriteRecipes.length}
+              open={favoritesOpen}
+              onToggle={toggleFavorites}
+              controls="favorites-list"
+            >
+              Favorites
+            </CollapsibleHeading>
+            <div id="favorites-list" className="flex flex-col gap-3" hidden={!favoritesOpen}>
               {favoriteRecipes.map((r) => (
                 <RecipeCard
                   key={r.id}

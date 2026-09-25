@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Badge, Button, Card, Icon, IconButton, MacroBar, TimePill } from '../design-system'
+import { Badge, Button, Card, HeartIcon, Icon, IconButton, MacroBar, TimePill } from '../design-system'
 import { UserButton } from '../components/UserButton'
 import { NotFound } from '../components/NotFound'
 import { PageSpinner } from '../components/Spinner'
@@ -24,6 +24,13 @@ interface RecipeDetailPageProps {
 }
 
 type Status = 'loading' | 'ready' | 'error'
+
+const sectionHeadingStyle: CSSProperties = {
+  marginBottom: 16,
+  fontFamily: 'var(--font-display)',
+  fontSize: 'var(--size-heading-m)',
+  fontWeight: 600,
+}
 
 // Most tutorials are Instagram reels, but a few point at YouTube.
 function describeTutorial(url: string): { href: string; label: string; icon: string } {
@@ -102,30 +109,24 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--surface-page)' }}>
-      <div
-        className="relative flex items-center justify-center"
-        style={{
-          height: 280,
-          background: recipe.image ? `url(${recipe.image}) center/cover` : TINTS[recipe.tint % TINTS.length],
-        }}
-      >
-        {!recipe.image && <Icon name="utensils-crossed" size={34} color="rgba(28,32,25,.28)" />}
-        <IconButton
-          icon="arrow-left"
-          variant="overlay"
-          label="Back"
-          onClick={() => navigate(-1)}
-          style={{ position: 'absolute', top: 16, left: 16 }}
-        />
-        <div style={{ position: 'absolute', top: 16, right: 16, display: 'flex', gap: 8 }}>
+      {/* On a phone the photo runs edge to edge; on wider screens it stays within the content column,
+          with rounded corners, so it isn't stretched across the whole window. */}
+      <div className="mx-auto max-w-3xl md:px-6 md:pt-6">
+        <div
+          className="relative flex items-center justify-center overflow-hidden h-[280px] md:h-[380px] md:rounded-[var(--radius-image)]"
+          style={{
+            background: recipe.image ? `url(${recipe.image}) center/cover` : TINTS[recipe.tint % TINTS.length],
+          }}
+        >
+          {!recipe.image && <Icon name="utensils-crossed" size={34} color="rgba(28,32,25,.28)" />}
           <IconButton
-            icon="heart"
+            icon="arrow-left"
             variant="overlay"
-            label={isSaved ? 'Remove from favorites' : 'Add to favorites'}
-            active={isSaved}
-            onClick={() => toggleSave(recipe.id)}
+            label="Back"
+            onClick={() => navigate(-1)}
+            style={{ position: 'absolute', top: 16, left: 16 }}
           />
-          <UserButton variant="overlay" />
+          <UserButton style={{ position: 'absolute', top: 16, right: 16 }} />
         </div>
       </div>
 
@@ -216,15 +217,20 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
           >
             {isTried ? 'Tried it' : 'Mark as tried'}
           </Button>
+          <Button
+            variant="outline"
+            aria-pressed={isSaved}
+            onClick={() => toggleSave(recipe.id)}
+            style={isSaved ? { background: 'var(--clay-200)', borderColor: 'var(--clay-200)' } : undefined}
+          >
+            <HeartIcon filled={isSaved} size={18} />
+            {isSaved ? 'Favorite' : 'Add to favorites'}
+          </Button>
         </div>
 
         {ingredients.length > 0 && (
-          <div className="mb-10">
-            <h2
-              style={{ marginBottom: 16, fontFamily: 'var(--font-display)', fontSize: 'var(--size-heading-m)', fontWeight: 600 }}
-            >
-              Ingredients
-            </h2>
+          <Card padding="m" elevation="s" className="mb-6">
+            <h2 style={sectionHeadingStyle}>Ingredients</h2>
             <ul className="flex flex-col gap-3 list-none p-0 m-0">
               {ingredients.map((ingredient) => (
                 <li key={ingredient.id} className="flex items-center gap-3">
@@ -236,16 +242,12 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
                 </li>
               ))}
             </ul>
-          </div>
+          </Card>
         )}
 
         {recipe.method.length > 0 && (
-          <div>
-            <h2
-              style={{ marginBottom: 16, fontFamily: 'var(--font-display)', fontSize: 'var(--size-heading-m)', fontWeight: 600 }}
-            >
-              Method
-            </h2>
+          <Card padding="m" elevation="s">
+            <h2 style={sectionHeadingStyle}>Method</h2>
             <ol className="flex flex-col gap-4 list-none p-0 m-0">
               {recipe.method.map((step, i) => (
                 <li key={i} className="flex gap-4">
@@ -266,7 +268,7 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
                 </li>
               ))}
             </ol>
-          </div>
+          </Card>
         )}
       </div>
     </div>
