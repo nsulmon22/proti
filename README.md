@@ -37,3 +37,16 @@ Voice, color, type, spacing and component guidance for the brand lives in [`.cla
 ## Project origin
 
 Design system imported from the Claude Design project **Proti Design System** (formerly prototyped under the working name "Gram Kitchen").
+
+## Password reset
+
+"Forgot password?" emails a code instead of a link. The user types it in the app with a new password (`verifyOtp` with type `recovery`, then `updateUser`). A code keeps working where links break: links open in the phone's browser instead of the installed app, and mail scanners click them first and use them up.
+
+This needs the Supabase **Reset password** email template (Authentication → Emails → Templates) to show the code, `{{ .Token }}`, for example:
+
+```html
+<h2>Your Proti code</h2>
+<p>Type this code in Proti to choose a new password:</p>
+<p style="font-size: 32px; font-weight: bold; letter-spacing: 6px; font-family: monospace">{{ .Token }}</p>
+<p>The code works for 1 hour. Didn't ask for it? You can ignore this email; your password stays the same.</p>
+```
