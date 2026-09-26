@@ -26,6 +26,8 @@
   background-repeat: no-repeat;
   pointer-events: none;
   transform: translateZ(0);
+  opacity: 0.4;
+  filter: saturate(0.85);
 }
 
 /* The Proti logo + wordmark that links home. Keeps its own colour on hover
