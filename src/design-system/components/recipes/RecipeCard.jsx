@@ -60,6 +60,7 @@ export function RecipeCard({
     padding: 'none',
     interactive: true,
     ...rest,
+    className: 'card-fade-in',
     style: { overflow: 'hidden', display: 'flex', flexDirection: horizontal ? 'row' : 'column', ...style },
   },
     media,

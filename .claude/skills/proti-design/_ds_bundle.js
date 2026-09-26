@@ -472,6 +472,7 @@ function RecipeCard({ title = "Untitled recipe", image, tint = 0, minutes, prote
     }) : null,
   );
   return React.createElement(__ds_scope.Card, Object.assign({ padding: "none", interactive: true }, rest, {
+    className: "card-fade-in",
     style: { overflow: "hidden", display: "flex", flexDirection: horizontal ? "row" : "column", ...style },
   }),
     media,

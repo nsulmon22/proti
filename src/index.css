@@ -105,11 +105,46 @@
   transition: transform var(--duration-base) var(--ease-standard);
 }
 
+/* Recipe cards ease in as they mount — on first load, and again for just the
+   new cards a "Load more" click appends (existing cards keep their DOM node,
+   so they don't replay this). */
+@keyframes card-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-fade-in {
+  animation: card-fade-in var(--duration-slow) var(--ease-out);
+}
+
+/* A quick, springy pop when a recipe is favorited. */
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.28);
+  }
+  60% {
+    transform: scale(0.94);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .brand-link,
   .account-button,
-  .collapse-chevron {
+  .collapse-chevron,
+  .card-fade-in {
     transition: none;
+    animation: none;
   }
   .brand-link:hover,
   .account-button:hover {
