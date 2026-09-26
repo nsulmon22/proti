@@ -462,7 +462,7 @@ function Stat({ icon, children }) {
 function RecipeCard({ title = "Untitled recipe", image, tint = 0, minutes, protein, calories, servings, tags = [], saved = false, onSave, layout = "vertical", style, ...rest }) {
   const horizontal = layout === "horizontal";
   const media = React.createElement("div", {
-    style: { position: "relative", width: horizontal ? 124 : "100%", height: horizontal ? 124 : 132, flex: "0 0 auto", background: image ? `url(${image}) center/cover` : TINTS[tint % TINTS.length], display: "flex", alignItems: "center", justifyContent: "center" },
+    style: { position: "relative", width: horizontal ? 124 : "100%", height: horizontal ? undefined : 132, minHeight: horizontal ? 124 : undefined, flex: "0 0 auto", background: image ? `url(${image}) center/cover` : TINTS[tint % TINTS.length], display: "flex", alignItems: "center", justifyContent: "center" },
   },
     !image ? React.createElement(__ds_scope.Icon, { name: "utensils-crossed", size: 26, color: "rgba(28,32,25,.30)" }) : null,
     onSave ? React.createElement(__ds_scope.IconButton, {
