@@ -33,7 +33,8 @@ export function RecipeCard({
     style: {
       position: 'relative',
       width: horizontal ? 124 : '100%',
-      height: horizontal ? 124 : 132,
+      height: horizontal ? undefined : 132,
+      minHeight: horizontal ? 124 : undefined,
       flex: '0 0 auto',
       background: image ? `url(${image}) center/cover` : TINTS[tint % TINTS.length],
       display: 'flex',
