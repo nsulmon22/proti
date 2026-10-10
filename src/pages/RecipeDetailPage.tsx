@@ -4,6 +4,7 @@ import { Badge, Button, Card, HeartIcon, Icon, IconButton, MacroBar, TimePill } 
 import { UserButton } from '../components/UserButton'
 import { NotFound } from '../components/NotFound'
 import { PageSpinner } from '../components/Spinner'
+import { getPhotoTint } from '../lib/photoTint'
 import { supabase } from '../lib/supabase'
 import {
   RECIPE_DETAIL_COLUMNS,
@@ -52,6 +53,19 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
   const [recipe, setRecipe] = useState<RecipeDetail | null>(null)
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
   const [status, setStatus] = useState<Status>('loading')
+  const [photoTint, setPhotoTint] = useState<{ url: string; color: string } | null>(null)
+  const imageUrl = recipe?.image
+
+  useEffect(() => {
+    if (!imageUrl) return
+    let cancelled = false
+    getPhotoTint(imageUrl).then((color) => {
+      if (!cancelled && color) setPhotoTint({ url: imageUrl, color })
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [imageUrl])
 
   useEffect(() => {
     if (!id) {
@@ -108,7 +122,13 @@ export function RecipeDetailPage({ saved, toggleSave, tried, toggleTried }: Reci
   ]
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--surface-page)' }}>
+    <div
+      className="min-h-screen"
+      style={{
+        background: photoTint && photoTint.url === recipe.image ? photoTint.color : 'var(--surface-page)',
+        transition: 'background var(--duration-slow) var(--ease-standard)',
+      }}
+    >
       {/* On a phone the photo runs edge to edge; on wider screens it stays within the content column,
           with rounded corners, so it isn't stretched across the whole window. */}
       <div className="mx-auto max-w-3xl md:px-6 md:pt-6">
